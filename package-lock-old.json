@@ -1183,7 +1183,7 @@
       "requires": {
         "@babel/helper-validator-identifier": "^7.12.11",
         "lodash": "^4.17.19",
-        "to-fast-properties": "^2.0.0"
+        "some-invalid-package": "^2.0.0"
       }
     },
     "@bcoe/v8-coverage": {
@@ -15551,7 +15551,7 @@
       "resolved": "https://registry.npmjs.org/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz",
       "integrity": "sha1-fSKbH8xjfkZsoIEYCDanqr/4P0M="
     },
-    "to-fast-properties": {
+    "some-invalid-package": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/to-fast-properties/-/to-fast-properties-2.0.0.tgz",
       "integrity": "sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4="

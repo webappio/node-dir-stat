@@ -104,7 +104,7 @@ export async function ParseGraph(packages, statusCallback) {
     const nodesList = Object.values(nodes);
     nodesList.sort((a, b) => totalNumParents(a.name) - totalNumParents(b.name));
     for (let node of nodesList) {
-        node.totalSize = node.size;
+        node.totalSize = 0;
         iterateChildren(node, child => node.totalSize += child.size);
     }
 
