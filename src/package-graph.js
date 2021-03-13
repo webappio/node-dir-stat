@@ -31,20 +31,25 @@ const totalDirSize = (files) => {
 }
 
 function setSizes(nodes, statusCallback) {
-    const requestPool = new RequestPool({capacity: 10, retries: 5});
+    const requestPool = new RequestPool({capacity: 10, retries: 2});
     let numProcessed = 0;
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         for (let node of Object.values(nodes)) {
             // node.size = Math.ceil(Math.random()*10000+1); statusCallback(100); continue;
 
             requestPool.fetch("https://unpkg.com/" + node.name + "@" + node.version + "/?meta")
+                .then(res =>  res.json())
                 .catch(err => {
-                    reject("Error for " + node.name + ": " + err);
+                    console.error("Error for " + node.name + ": " + err);
                 })
-                .then(res => res.json())
                 .then(meta => {
-                    node.size = totalDirSize(meta.files);
+                    if(!meta) {
+                        node.size = 1_000_000; //1mb arbitrarily
+                    } else {
+                        node.size = totalDirSize(meta.files);
+                    }
+
                     numProcessed += 1;
                     statusCallback(numProcessed * 100/Object.values(nodes).length);
                     if(numProcessed === Object.values(nodes).length) {
