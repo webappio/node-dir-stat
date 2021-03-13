@@ -30,7 +30,7 @@ const App = () => {
 
     return <main style={{display: "flex", flexDirection: "column"}}>
         {packageLockJson ? null : <>
-            <div>
+            <div style={{display: "flex", justifyContent: "center"}}>
                 <button className="upload-file-button" onClick={() => inputRef.click()}>
                     <i className="feather icon-play-circle"
                        style={{fontSize: "0.85rem", display: "inline-block"}}/> Upload a package-lock.json file
