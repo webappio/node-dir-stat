@@ -56,7 +56,7 @@ function GraphVizColumns({graph, setCurrNode}) {
         .fill(null)
         .map((_, i) => graphList.slice(sqrtNumNodes * i, sqrtNumNodes * (i+1)));
 
-    return <div style={{overflowX: "auto", display: "flex", flexDirection: "row"}}>
+    return <div style={{overflowX: "auto", display: "flex", flexDirection: "row", justifyContent: "center"}}>
         {groups.map((group, groupIndex) => <div key={groupIndex} style={{
             display: "flex",
             flexDirection: "column",
