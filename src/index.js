@@ -112,22 +112,22 @@ const App = () => {
 
         if (packageLockJson && packageLockJson.dependencies) {
             setNumPackages(Object.keys(packageLockJson.dependencies).length);
-            for (let packageName of Object.keys(packageLockJson.dependencies)) {
-                let packageData = packageLockJson.dependencies[packageName];
-                if (!packageSizes[packageName + "@" + packageData.version]) {
-                    requestPool.fetch("https://unpkg.com/"+packageName+"@"+packageData.version+"/?meta").catch(err => {
-                        setError("Error for "+packageName+": "+err);
-                    }).then(res => res.json())
-                        .then(meta => {
-                            setPackageSizes(packageSizes => ({...packageSizes, [packageName+"@"+packageData.version]: totalDirSize(meta.files)}));
-                        });
-                }
-            }
+            // for (let packageName of Object.keys(packageLockJson.dependencies)) {
+            //     let packageData = packageLockJson.dependencies[packageName];
+            //     if (!packageSizes[packageName + "@" + packageData.version]) {
+            //         requestPool.fetch("https://unpkg.com/"+packageName+"@"+packageData.version+"/?meta").catch(err => {
+            //             setError("Error for "+packageName+": "+err);
+            //         }).then(res => res.json())
+            //             .then(meta => {
+            //                 setPackageSizes(packageSizes => ({...packageSizes, [packageName]: totalDirSize(meta.files)}));
+            //             });
+            //     }
+            // }
         }
     }, [packageLockJson]);
 
     React.useEffect(() => {
-        if (numProcessing === 0 && packageLockJson && numPackages > 0) {
+        if (numProcessing === 0 && packageLockJson /*&& numPackages > 0*/) {
             setGraph(ParseGraph(packageLockJson.dependencies, packageSizes));
             setDisplayingGraph(true);
         }

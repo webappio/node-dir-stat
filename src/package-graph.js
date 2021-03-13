@@ -30,8 +30,8 @@ export function ParseGraph(packages, packageSizes) {
         nodes[packageName] = {
             name: packageName,
             version: packageData.version,
-            size: packageSizes[packageName+"@"+packageData.version],
-            // size: Math.ceil(Math.random()*10000+1),
+            // size: packageSizes[packageName],
+            size: Math.ceil(Math.random()*10000+1),
             children: new Set(),
         };
     });
@@ -64,6 +64,10 @@ export function ParseGraph(packages, packageSizes) {
     //sort by closure size - there might be loops so can't do a topological sort
     const nodesList = Object.values(nodes);
     nodesList.sort((a, b) => totalNumParents(a.name)-totalNumParents(b.name));
+    for(let node of nodesList) {
+        node.totalSize = node.size;
+        iterateChildren(node, child => node.totalSize += child.size);
+    }
 
     const seenNodes = {};
     const result = [];
