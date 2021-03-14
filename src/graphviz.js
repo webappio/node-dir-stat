@@ -18,7 +18,7 @@ function renderFileSize(sizeBytes) {
     return (sizeBytes / 1_000_000_000).toFixed(2) + "GB";
 }
 
-function GraphVizRow({node, i, height, setCurrNode}) {
+function GraphVizRow({node, backgroundColor, height, setCurrNode}) {
     return <div
         className="graphbox"
         style={{
@@ -29,7 +29,7 @@ function GraphVizRow({node, i, height, setCurrNode}) {
             height: (height * 95) + "vh",
             minWidth: "8rem",
             textAlign: "center",
-            background: selectColor(i),
+            background: backgroundColor,
             cursor: node.children.size > 0 ? "pointer" : "inherit",
         }}
         onClick={() => {
@@ -70,9 +70,9 @@ function GraphVizColumns({graph, setCurrNode}) {
             {group.map((node, i) => <GraphVizRow
                 key={node.name}
                 node={node}
-                i={i}
                 setCurrNode={setCurrNode}
                 height={node.totalSize / group.map(({totalSize}) => totalSize).reduce((a, b) => a + b, 0)}
+                backgroundColor={selectColor(groupIndex*sqrtNumNodes+i)}
             />)}
         </div>)}
     </div>
