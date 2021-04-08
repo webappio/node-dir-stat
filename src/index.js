@@ -18,7 +18,7 @@ const App = () => {
         }
         if(packageLockJson) {
             ParseGraph(packageLockJson.dependencies, percent => {
-                setStatus("Setting sizes (" + percent.toFixed(1) + "%)");
+                setStatus("Getting size info (" + percent.toFixed(1) + "%)");
             }).catch(e => setError("" + e))
                 .then(res => {
                     if (res) {
@@ -34,6 +34,14 @@ const App = () => {
                 <button className="upload-file-button" onClick={() => inputRef.click()}>
                     <i className="feather icon-play-circle"
                        style={{fontSize: "0.85rem", display: "inline-block"}}/> Upload a package-lock.json file
+                </button>
+                <button className="upload-file-button" onClick={() => {
+                    fetch("https://raw.githubusercontent.com/layer-devops/node-dir-stat/master/package-lock.json")
+                        .then(res => res.json())
+                        .then(res => setPackageLockJson(res));
+                }}>
+                    <i className="feather icon-play-circle"
+                       style={{fontSize: "0.85rem", display: "inline-block"}}/> See example
                 </button>
             </div>
             <input type="file" accept=".json" style={{visibility: "hidden"}} ref={setInputRef} onChange={e => {
